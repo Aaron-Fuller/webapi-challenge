@@ -42,7 +42,6 @@ router.get('/:id', (req, res) => {
       res.status(200).json(projects);
     })
     .catch(error => {
-      // log error to server
       console.log(error);
       res.status(500).json({
         message: 'Error updating the project',
@@ -65,6 +64,20 @@ router.get('/:id', (req, res) => {
         })
     })
 });
+
+router.delete('/:id', (req, res) => {
+    db.remove(req.params.id)
+    .then(projects => {
+        console.log(projects)
+      res.status(200).json({ message: 'The project has been destroyed' });
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: 'Error removing the project',
+      })
+    })
+  });
 
 
 module.exports = router;
