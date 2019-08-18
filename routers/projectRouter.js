@@ -36,5 +36,19 @@ router.get('/:id', (req, res) => {
     })
   });
 
+  router.put('/:id', (req, res) => {
+    db.update(req.params.id, req.body)
+    .then(projects => {
+      res.status(200).json(projects);
+    })
+    .catch(error => {
+      // log error to server
+      console.log(error);
+      res.status(500).json({
+        message: 'Error updating the project',
+      })
+    });
+  });
+
 
 module.exports = router;
