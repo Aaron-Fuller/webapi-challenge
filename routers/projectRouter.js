@@ -50,5 +50,21 @@ router.get('/:id', (req, res) => {
     });
   });
 
+  router.post('/', (req, res) => {
+    db.insert(req.body)
+    .then(projects => {
+        console.log(projects);
+        res.status(201).json({
+            message: 'project created'
+        })
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(500).json({
+            err: 'error'
+        })
+    })
+});
+
 
 module.exports = router;
