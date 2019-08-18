@@ -24,6 +24,51 @@ router.post('/', (req, res) => {
     })
 });
 
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+    db.get(id)
+    .then(actions => {
+        console.log(actions);
+        res.status(200).json({
+            message: 'User by ID',
+            actions
+        })
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(500).json({
+            message: 'user not found'
+        })
+    })
+  });
+
+  router.put('/:id', (req, res) => {
+    db.update(req.params.id, req.body)
+    .then(actions => {
+      res.status(200).json(actions);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        message: 'Error updating the action',
+      });
+    });
+  });
+
+  router.delete('/:id', (req, res) => {
+    db.remove(req.params.id)
+    .then(actions => {
+        console.log(actions)
+      res.status(200).json({ message: 'The action has been deleted' });
+    })
+    .catch(error => {
+      // log error to server
+      console.log(error);
+      res.status(500).json({
+        message: 'Error removing the action',
+      });
+    });
+  });
 
 
 
