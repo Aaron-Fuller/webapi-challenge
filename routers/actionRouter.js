@@ -8,8 +8,23 @@ router.get('/', (req, res) => {
         res.status(200).json(actions);
     })
     .catch(err => {
-        res.status(500).json({error: 'could not get action'})
+        res.status(500).json({error: 'could not get action'});
     })
 });
+
+router.post('/', (req, res) => {
+    //console.log(req.body);
+    db.insert(req.body)
+    .then(actions => {
+        console.log(actions);
+        res.status(201).json({message: 'Action create'});
+    })
+    .catch(err => {
+        res.status(500).json({error: 'Missing elements'});
+    })
+});
+
+
+
 
 module.exports = router;
